@@ -1,0 +1,4 @@
+rm -f /Users/john.lee/project/CompPhoto/openCVLibrary310/build/intermediates/ndkBuild/release/lib/mips/lib*.so
+rm -f /Users/john.lee/project/CompPhoto/openCVLibrary310/build/intermediates/ndkBuild/release/lib/mips/gdbserver
+rm -f /Users/john.lee/project/CompPhoto/openCVLibrary310/build/intermediates/ndkBuild/release/lib/mips/gdb.setup
+/Users/john.lee/Library/Android/sdk/ndk-bundle/build/core/build-all.mk:89: Android NDK: WARNING: There are no modules to build in this project!    

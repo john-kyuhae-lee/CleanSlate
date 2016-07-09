@@ -1,0 +1,13 @@
+Executable : /Users/john.lee/Library/Android/sdk/ndk-bundle/ndk-build
+arguments : 
+NDK_PROJECT_PATH=null
+APP_BUILD_SCRIPT=/Users/john.lee/project/CompPhoto/thirdparty/OpenCV-android-sdk/sdk/native/jni/OpenCV.mk
+APP_ABI=armeabi-v7a
+NDK_ALL_ABIS=armeabi-v7a
+NDEBUG=0
+APP_PLATFORM=android-21
+NDK_OUT=/Users/john.lee/project/CompPhoto/openCVLibrary310/build/intermediates/ndkBuild/release/obj
+NDK_LIBS_OUT=/Users/john.lee/project/CompPhoto/openCVLibrary310/build/intermediates/ndkBuild/release/lib
+-n
+jvmArgs : 
+

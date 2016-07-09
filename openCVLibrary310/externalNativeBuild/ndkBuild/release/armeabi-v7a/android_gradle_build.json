@@ -1,0 +1,9 @@
+{
+  "buildFiles": [
+    "/Users/john.lee/project/CompPhoto/thirdparty/OpenCV-android-sdk/sdk/native/jni/OpenCV.mk"
+  ],
+  "libraries": {},
+  "toolchains": {},
+  "cFileExtensions": [],
+  "cppFileExtensions": []
+}

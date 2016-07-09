@@ -1,0 +1,1 @@
+/Users/john.lee/project/CompPhoto/app/externalNativeBuild/cmake/debug/x86_64/CMakeFiles/native-lib.dir

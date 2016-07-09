@@ -1,0 +1,38 @@
+
+{
+	"buildFiles" : [ "/Users/john.lee/project/CompPhoto/app/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"/Users/john.lee/Library/Android/sdk/cmake/bin/cmake --build /Users/john.lee/project/CompPhoto/app/externalNativeBuild/cmake/debug/mips --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"native-lib-Debug-mips" : 
+		{
+			"abi" : "mips",
+			"artifactName" : "native-lib",
+			"buildCommand" : "/Users/john.lee/Library/Android/sdk/cmake/bin/cmake --build /Users/john.lee/project/CompPhoto/app/externalNativeBuild/cmake/debug/mips --target native-lib",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  -DANDROID -Dnative_lib_EXPORTS -isystem /Users/john.lee/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-mips/usr/include -isystem /Users/john.lee/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /Users/john.lee/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips/include -isystem /Users/john.lee/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -fexceptions -frtti -Wno-psabi --sysroot=/Users/john.lee/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-mips -fno-strict-aliasing -finline-functions -funwind-tables -fmessage-length=0 -fno-inline-functions-called-once -fgcse-after-reload -frerun-cse-after-loop -frename-registers -fsigned-char -no-canonical-prefixes -fdata-sections -ffunction-sections -Wa,--noexecstack -frtti -fexceptions -fno-omit-frame-pointer -O0 -g -DDEBUG -D_DEBUG -fPIC      ",
+					"src" : "/Users/john.lee/project/CompPhoto/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "/Users/john.lee/project/CompPhoto/app/externalNativeBuild/cmake/debug/mips"
+				}
+			],
+			"output" : "/Users/john.lee/project/CompPhoto/app/build/intermediates/cmake/debug/obj/mips/libnative-lib.so",
+			"toolchain" : "12173538131801992713"
+		}
+	},
+	"toolchains" : 
+	{
+		"12173538131801992713" : 
+		{
+			"cCompilerExecutable" : "/Users/john.lee/Library/Android/sdk/ndk-bundle/toolchains/mipsel-linux-android-4.9/prebuilt/darwin-x86_64/bin/mipsel-linux-android-gcc",
+			"cppCompilerExecutable" : "/Users/john.lee/Library/Android/sdk/ndk-bundle/toolchains/mipsel-linux-android-4.9/prebuilt/darwin-x86_64/bin/mipsel-linux-android-g++"
+		}
+	}
+}

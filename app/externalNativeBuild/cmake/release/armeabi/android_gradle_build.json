@@ -1,0 +1,38 @@
+
+{
+	"buildFiles" : [ "/Users/john.lee/project/CompPhoto/app/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"/Users/john.lee/Library/Android/sdk/cmake/bin/cmake --build /Users/john.lee/project/CompPhoto/app/externalNativeBuild/cmake/release/armeabi --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"native-lib-Release-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "native-lib",
+			"buildCommand" : "/Users/john.lee/Library/Android/sdk/cmake/bin/cmake --build /Users/john.lee/project/CompPhoto/app/externalNativeBuild/cmake/release/armeabi --target native-lib",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  -DANDROID -Dnative_lib_EXPORTS -isystem /Users/john.lee/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm/usr/include -isystem /Users/john.lee/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /Users/john.lee/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi/include -isystem /Users/john.lee/Library/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -fexceptions -frtti -Wno-psabi --sysroot=/Users/john.lee/Library/Android/sdk/ndk-bundle/platforms/android-21/arch-arm -funwind-tables -finline-limit=64 -fsigned-char -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -fdata-sections -ffunction-sections -Wa,--noexecstack -frtti -fexceptions -mthumb -fomit-frame-pointer -fno-strict-aliasing -O3 -DNDEBUG -fPIC      ",
+					"src" : "/Users/john.lee/project/CompPhoto/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "/Users/john.lee/project/CompPhoto/app/externalNativeBuild/cmake/release/armeabi"
+				}
+			],
+			"output" : "/Users/john.lee/project/CompPhoto/app/build/intermediates/cmake/release/obj/armeabi/libnative-lib.so",
+			"toolchain" : "4921975055193502069"
+		}
+	},
+	"toolchains" : 
+	{
+		"4921975055193502069" : 
+		{
+			"cCompilerExecutable" : "/Users/john.lee/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-gcc",
+			"cppCompilerExecutable" : "/Users/john.lee/Library/Android/sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-g++"
+		}
+	}
+}
