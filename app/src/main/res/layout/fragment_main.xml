@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:opencv="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_main"
     android:layout_width="match_parent"
@@ -8,12 +7,29 @@
     tools:context="com.lee.kyuhae.john.compphoto.MainActivityFragment"
     tools:showIn="@layout/activity_main">
 
-    <org.opencv.android.JavaCameraView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:visibility="gone"
-        android:id="@+id/HelloOpenCvView"
-        opencv:show_fps="true"
-        opencv:camera_id="any" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/image_view1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/place_holder" />
+
+        <ImageView
+            android:id="@+id/image_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_view1"
+            android:contentDescription="@string/place_holder" />
+
+        <ImageView
+            android:id="@+id/image_view3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_view2"
+            android:contentDescription="@string/place_holder" />
+
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
