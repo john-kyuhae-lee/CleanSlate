@@ -1,30 +1,88 @@
 package com.lee.kyuhae.john.compphoto;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.lee.kyuhae.john.compphoto.event.CaptureCompletionEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+
 public class MainActivity extends AppCompatActivity {
+    // Loading OpenCV native libraries
+    static {
+        System.loadLibrary("opencv_java3");
+    }
+
+    private static final String TAG = "MyMainActivity";
+
+    private final MyCameraFragment myCameraFragment = new MyCameraFragment();
+    private final PhotoDisplayFragment photoDisplayFragment = new PhotoDisplayFragment();
+
+    public final static EventBus eventBus = new EventBus();
+
+    @Subscribe
+    public void onCaptureComplete(CaptureCompletionEvent event) {
+        Bundle args = new Bundle();
+        args.putString(Constants.PHOTO_PATH_ARG, event.getPhotoPath());
+        photoDisplayFragment.setArguments(args);
+        showPictures();
+    }
+
+    private void showPictures() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, photoDisplayFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        eventBus.register(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(getApplicationContext()) {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onManagerConnected(int status) {
+                switch (status) {
+                    case LoaderCallbackInterface.SUCCESS: {
+                        Log.i(TAG, "OpenCV loaded successfully");
+                    }
+                    break;
+                    default: {
+                        super.onManagerConnected(status);
+                    }
+                    break;
+                }
             }
-        });
+        };
+
+        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_1_0, getApplicationContext(),
+                mLoaderCallback);
+
+        setContentView(R.layout.activity_main);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, myCameraFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
     }
 
     @Override

@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
+def libraryVersion = "24.0.0"
 
 android {
     compileSdkVersion 24
     buildToolsVersion '22.0.1'
+
     defaultConfig {
         applicationId "com.lee.kyuhae.john.compphoto"
         minSdkVersion 21
@@ -40,12 +42,22 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
-    compile 'com.android.support:design:24.0.0'
+    compile "com.android.support:appcompat-v7:$libraryVersion"
+    compile "com.android.support.constraint:constraint-layout:1.0.0-alpha4"
+    compile "com.android.support:design:$libraryVersion"
+    compile "com.android.support:support-v4:$libraryVersion"
+    compile "com.android.support:support-v13:$libraryVersion"
+    compile "com.android.support:cardview-v7:$libraryVersion"
+    compile "com.android.support:appcompat-v7:$libraryVersion"
 
     // https://mvnrepository.com/artifact/commons-io/commons-io
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
+
+    // project lombok
+    provided "org.projectlombok:lombok:1.12.6"
+
+    // eventbus from greenrobot
+    compile 'org.greenrobot:eventbus:3.0.0'
 
     testCompile 'junit:junit:4.12'
     compile project(':openCVLibrary310')
