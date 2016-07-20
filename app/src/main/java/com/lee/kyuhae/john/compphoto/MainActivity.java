@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe
     public void onCaptureComplete(CaptureCompletionEvent event) {
         Bundle args = new Bundle();
-        args.putString(Constants.PHOTO_PATH_ARG, event.getPhotoPath());
+        args.putStringArrayList(Constants.PHOTO_PATH_ARG, event.getPictures());
         photoDisplayFragment.setArguments(args);
         showPictures();
     }

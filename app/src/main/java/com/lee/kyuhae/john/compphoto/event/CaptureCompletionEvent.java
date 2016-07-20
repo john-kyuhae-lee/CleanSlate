@@ -1,5 +1,7 @@
 package com.lee.kyuhae.john.compphoto.event;
 
+import java.util.ArrayList;
+
 import lombok.Getter;
 
 /**
@@ -8,9 +10,10 @@ import lombok.Getter;
  * Created by john.lee on 7/17/16.
  */
 public class CaptureCompletionEvent {
-    @Getter private final String photoPath;
+    // Paths to pictures.
+    @Getter private final ArrayList<String> pictures;
 
-    public CaptureCompletionEvent(String photoPath) {
-        this.photoPath = photoPath;
+    public CaptureCompletionEvent(ArrayList<String> pictures) {
+        this.pictures = pictures;
     }
 }

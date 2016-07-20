@@ -56,6 +56,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.lee.kyuhae.john.compphoto.Constants;
 import com.lee.kyuhae.john.compphoto.R;
 
 import java.io.File;
@@ -412,7 +413,7 @@ public abstract class Camera2BasicFragment extends Fragment implements View.OnCl
         } else {
             Log.e(TAG, "Couldn't find any suitable preview size");
             Log.i(TAG, "Here are all choices [" + Arrays.asList(choices).toString() + "]");
-            return choices[0];
+            return choices[5];
         }
     }
 
@@ -425,7 +426,6 @@ public abstract class Camera2BasicFragment extends Fragment implements View.OnCl
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mFile = new File(getActivity().getExternalFilesDir(null), "pic.jpg");
     }
 
     @Override
@@ -442,7 +442,6 @@ public abstract class Camera2BasicFragment extends Fragment implements View.OnCl
             openCamera(mTextureView.getWidth(), mTextureView.getHeight());
         } else {
             Log.d(TAG, "mTextureView NOT available onResume.");
-
             mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
         }
     }
@@ -502,12 +501,15 @@ public abstract class Camera2BasicFragment extends Fragment implements View.OnCl
                     continue;
                 }
 
-                // For still image captures, we use the largest available size.
-                Size largest = Collections.max(
-                        Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)),
+                // let's try with the smallest.
+                List<Size> availableSizes = Arrays.asList(map.getOutputSizes(ImageFormat.JPEG));
+
+                Collections.sort(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)),
                         new CompareSizesByArea());
-                mImageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(),
-                        ImageFormat.JPEG, /*maxImages*/2);
+                int numChoices = availableSizes.size();
+                Size chosen = availableSizes.get(numChoices / 2);
+                mImageReader = ImageReader.newInstance(chosen.getWidth(), chosen.getHeight(),
+                        ImageFormat.JPEG, Constants.NUM_IMAGES_REQUIRED);
                 mImageReader.setOnImageAvailableListener(
                         mOnImageAvailableListener, mBackgroundHandler);
 
@@ -559,9 +561,11 @@ public abstract class Camera2BasicFragment extends Fragment implements View.OnCl
                 // Danger, W.R.! Attempting to use too large a preview size could  exceed the camera
                 // bus' bandwidth limitation, resulting in gorgeous previews but the storage of
                 // garbage capture data.
+                Log.d(TAG, "Available SurfaceTexture sizes [" +
+                        Arrays.toString(map.getOutputSizes(SurfaceTexture.class)) + "]");
                 mPreviewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture.class),
                         rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth,
-                        maxPreviewHeight, largest);
+                        maxPreviewHeight, chosen);
 
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
@@ -761,14 +765,16 @@ public abstract class Camera2BasicFragment extends Fragment implements View.OnCl
     /**
      * Initiate a still image capture.
      */
-    private void takePicture() {
-        lockFocus();
+    protected abstract void takePicture();
+
+    protected void createFile(String fileName) {
+        mFile = new File(getActivity().getExternalFilesDir(null), fileName + ".jpg");
     }
 
     /**
      * Lock the focus as the first step for a still image capture.
      */
-    private void lockFocus() {
+    protected void lockFocus() {
         try {
             // This is how to tell the camera to lock focus.
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
@@ -832,9 +838,9 @@ public abstract class Camera2BasicFragment extends Fragment implements View.OnCl
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session,
                                                @NonNull CaptureRequest request,
                                                @NonNull TotalCaptureResult result) {
-                    showToast("Saved: " + mFile);
                     Log.d(TAG, mFile.toString());
                     unlockFocus();
+                    notifyCaptureCompletion();
                 }
             };
 
@@ -995,7 +1001,6 @@ public abstract class Camera2BasicFragment extends Fragment implements View.OnCl
                     })
                     .create();
         }
-
     }
 
     /**

@@ -6,5 +6,6 @@ package com.lee.kyuhae.john.compphoto;
 
 public class Constants {
     public static final String PHOTO_PATH_ARG = "photopath";
+    public static final int NUM_IMAGES_REQUIRED = 5;
 
 }
