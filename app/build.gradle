@@ -52,6 +52,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/commons-io/commons-io
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    // https://mvnrepository.com/artifact/commons-collections/commons-collections
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.0'
 
     // project lombok
     provided "org.projectlombok:lombok:1.12.6"

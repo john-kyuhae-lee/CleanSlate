@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lee.kyuhae.john.compphoto.event.CaptureCompletionEvent;
+import com.lee.kyuhae.john.compphoto.test.MyTestFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -78,7 +79,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.fragment_container, myCameraFragment);
+        // transaction.replace(R.id.fragment_container, myCameraFragment);
+
+        // testing
+        transaction.replace(R.id.fragment_container, new MyTestFragment());
         transaction.addToBackStack(null);
 
         // Commit the transaction
