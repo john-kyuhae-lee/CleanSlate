@@ -7,11 +7,19 @@ import lombok.Data;
  */
 @Data
 public class Coordinate {
-    private final int col, row;
+    private int col, row;
 
     public Coordinate(int col, int row) {
         this.col = col;
         this.row = row;
+    }
+
+    public void incrementColumn() {
+        this.col++;
+    }
+
+    public void incrementRow() {
+        this.row++;
     }
 
     public boolean greaterThanOrEqualTo(Coordinate other) {
@@ -20,5 +28,9 @@ public class Coordinate {
 
     public boolean smallerThan(Coordinate other) {
         return this.col < other.getCol() && this.row < other.getRow();
+    }
+
+    public int getOneDimensionalIndex(int width) {
+        return row * width + col;
     }
 }

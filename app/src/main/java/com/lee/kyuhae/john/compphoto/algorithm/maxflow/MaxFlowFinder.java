@@ -6,12 +6,42 @@ import java.util.ArrayList;
  * Created by john.lee on 7/20/16.
  */
 
-public class MaxFlow extends Graph {
+public class MaxFlowFinder {
     private static final Arc TERMINAL = new Arc();
     private static final Arc ORPHAN = new Arc();
     private static final int INFINITE_DISTANCE = 1000000000;
 
-    public void setActive(Node i) {
+    private final Graph g;
+
+    private ArrayList<NodePointer> nodePointerList;
+    private Node[] queueFirst = new Node[2];
+    private Node[] queueLast = new Node[2];
+    private NodePointer orphanFirst = null;
+    private NodePointer orphanLast = null;
+    private int timestamp = 0;
+    private double flow = 0.0;
+
+    public MaxFlowFinder(Graph g) {
+        this.g = g;
+    }
+
+    public void setTweights(Node i, double sourceCapacity, double sinkCapacity) {
+        flow += sourceCapacity < sinkCapacity ? sourceCapacity : sinkCapacity;
+        i.setResidualCapacity(sourceCapacity - sinkCapacity);
+    }
+
+    public void addTweights(Node i, double sourceCapacity, double sinkCapacity) {
+        double delta = i.getResidualCapacity();
+        if (delta > 0) {
+            sourceCapacity += delta;
+        } else {
+            sinkCapacity -= delta;
+        }
+
+        setTweights(i, sourceCapacity, sinkCapacity);
+    }
+
+    private void setActive(Node i) {
         if (i.getNext() == null) {
             if (queueLast[1] != null) {
                 queueFirst[1].setNext(i);
@@ -22,7 +52,7 @@ public class MaxFlow extends Graph {
         }
     }
 
-    public Node nextActive() {
+    private Node nextActive() {
         Node i = queueFirst[0];
 
         while (true) {
@@ -51,14 +81,14 @@ public class MaxFlow extends Graph {
         }
     }
 
-    public void init() {
+    private void init() {
         queueFirst[0] = null;
         queueFirst[1] = null;
         queueLast[0] = null;
         queueLast[0] = null;
         orphanFirst = null;
 
-        for (Node node : nodeList) {
+        for (Node node : g.getNodeList()) {
             node.setNext(null);
             node.setTimestamp(0);
             if (node.getResidualCapacity() > 0) {
@@ -81,10 +111,10 @@ public class MaxFlow extends Graph {
         timestamp = 0;
     }
 
-    public void augment(Arc middleArc) {
+    private void augment(Arc middleArc) {
         Node i;
         Arc a;
-        float bottleneck;
+        double bottleneck;
         NodePointer np;
 
 	    /* 1. Finding bottleneck capacity */
@@ -123,9 +153,9 @@ public class MaxFlow extends Graph {
 
 	    /* 2. Augmenting */
         /* 2a - the source tree */
-        float sisterRC = middleArc.getSister().getResidualCapacity() + bottleneck;
+        double sisterRC = middleArc.getSister().getResidualCapacity() + bottleneck;
         middleArc.getSister().setResidualCapacity(sisterRC);
-        float middleArcRC = middleArc.getResidualCapacity() - bottleneck;
+        double middleArcRC = middleArc.getResidualCapacity() - bottleneck;
         middleArc.setResidualCapacity(middleArcRC);
 
         for (i = middleArc.getSister().getHead(); ; i = a.getHead()) {
@@ -139,7 +169,7 @@ public class MaxFlow extends Graph {
             sisterRC = a.getSister().getResidualCapacity() - bottleneck;
             a.getSister().setResidualCapacity(sisterRC);
 
-            // TODO: Make sure I am getting this !floatVal cpp evaluation translated correctly.
+            // TODO: Make sure I am getting this !doubleVal cpp evaluation translated correctly.
             if (a.getSister().getResidualCapacity() < 0) {
                 /* add i to the adoption list */
                 i.setParent(ORPHAN);
@@ -151,7 +181,7 @@ public class MaxFlow extends Graph {
             }
         }
 
-        float updatedRC = i.getResidualCapacity() - bottleneck;
+        double updatedRC = i.getResidualCapacity() - bottleneck;
         i.setResidualCapacity(updatedRC);
 
         if (i.getResidualCapacity() < 0) {
@@ -202,14 +232,16 @@ public class MaxFlow extends Graph {
         flow += bottleneck;
     }
 
-    public void processSourceOrphan(Node i) {
+    private void processSourceOrphan(Node i) {
         Node j;
         Arc a0, a0Min = null, a;
         NodePointer np;
         int d, dMin = INFINITE_DISTANCE;
 
+        a0 = i.getFirst();
+
         /* trying to find a new parent */
-        for (a0 = i.getFirst(); a0 != null ; a0 = a0.getNext()) {
+        while (a0 != null) {
             if (a0.getSister().getResidualCapacity() >= 0) {
                 j = a0.getHead();
                 a = j.getParent();
@@ -258,6 +290,7 @@ public class MaxFlow extends Graph {
             if (i.getParent() != null) {
                 i.setTimestamp(timestamp);
                 i.setDistance(dMin + 1);
+                a0 = a0.getNext();
             } else {
                 /* no parent is found */
                 i.setTimestamp(0);
@@ -291,14 +324,16 @@ public class MaxFlow extends Graph {
         }
     }
 
-    public void processSinkOrphan(Node i) {
+    private void processSinkOrphan(Node i) {
         Node j;
         Arc a0, a0Min = null, a;
         NodePointer np;
         int d, dMin = INFINITE_DISTANCE;
 
+        a0 = i.getFirst();
+
         /* trying to find a new parent */
-        for ( a0 = i.getFirst(); a0 != null; a0 = a0.getNext() ) {
+        while ( a0 != null ) {
             if (a0.getResidualCapacity() >= 0) {
                 j = a0.getHead();
                 a = j.getParent();
@@ -347,6 +382,7 @@ public class MaxFlow extends Graph {
             if (i.getParent() != null) {
                 i.setTimestamp(timestamp);
                 i.setDistance(dMin + 1);
+                a0 = a0.getNext();
             } else {
                 /* no parent is found */
                 i.setTimestamp(0);
@@ -381,7 +417,7 @@ public class MaxFlow extends Graph {
         }
     }
 
-    public double maxflow() {
+    public double findMaxFlow() {
         Node i, j, cur = null;
         Arc a;
         NodePointer np, npNext;

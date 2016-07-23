@@ -17,5 +17,5 @@ public class Node {
     private int distance;
     private boolean sink;
 
-    private float residualCapacity;
+    private double residualCapacity;
 }

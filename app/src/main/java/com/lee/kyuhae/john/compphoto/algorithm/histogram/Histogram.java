@@ -1,4 +1,4 @@
-package com.lee.kyuhae.john.compphoto.algorithm;
+package com.lee.kyuhae.john.compphoto.algorithm.histogram;
 
 import android.util.Log;
 
@@ -14,8 +14,8 @@ import lombok.Getter;
  * of author's original work. Link to their artifact can be found in Readme file of the project.
  * Created by john.lee on 7/19/16.
  */
-public class Histogram {
-    public class Channel {
+class Histogram {
+    private class Channel {
         private static final String TAG = "Histogram.Channel";
         private static final int MIN = 0;
         private static final int MAX = 256;
@@ -28,12 +28,12 @@ public class Histogram {
         @Getter
         private double variance;
 
-        public Channel() {
+        Channel() {
             this.histogram = new int[NUM_BINS];
             Arrays.fill(histogram, 0);
         }
 
-        public void addValue(int val) {
+        void addValue(int val) {
             if (val < MIN || val > MAX) {
                 Log.e(TAG, "A given data with value " + val + ".");
                 throw new IllegalArgumentException("Data should be between " + MIN + " and " + MAX
@@ -65,28 +65,32 @@ public class Histogram {
             }
         }
 
-        public double getProbability(int val) {
+        double getProbability(int val) {
             int binIdx = (int) (val / BIN_SIZE);
             return histogram[binIdx] / totalNumDataPoint;
         }
     }
 
-    public class Pixel {
+    class Pixel {
         private final Channel rChannel = new Channel();
         private final Channel gChannel = new Channel();
         private final Channel bChannel = new Channel();
 
-        public void addValues(double[] values) {
+        void addValues(double[] values) {
             addValues((int) values[0], (int) values[1], (int) values[2]);
         }
 
-        public void addValues(int r, int g, int b) {
+        void addValues(int r, int g, int b) {
             this.rChannel.addValue(r);
             this.gChannel.addValue(g);
             this.bChannel.addValue(b);
         }
 
-        public double getProbabiilty(int r, int g, int b) {
+        double getProbability(double[] rgbValues) {
+            return getProbability((int) rgbValues[0], (int) rgbValues[1], (int) rgbValues[2]);
+        }
+
+        double getProbability(int r, int g, int b) {
             return rChannel.getProbability(r)
                     * gChannel.getProbability(g)
                     * bChannel.getProbability(b);
@@ -96,8 +100,9 @@ public class Histogram {
     private static final int MIN_REQUIRED_NUM_IMAGES = 2;
     private final Pixel[] pixels;
     private final int width, height;
+    private final Mat[] images;
 
-    public Histogram(final Mat[] images) {
+    Histogram(final Mat[] images) {
         // Check that at least MIN_REQUIRED_NUM_IMAGES are given.
         if (images.length < MIN_REQUIRED_NUM_IMAGES) {
             throw new IllegalArgumentException("Mininum of " + MIN_REQUIRED_NUM_IMAGES +
@@ -108,7 +113,11 @@ public class Histogram {
         width = images[0].width();
         height = images[0].height();
         this.pixels = new Pixel[width * height];
+        this.images = images;
 
+    }
+
+    public void compute() {
         for (int col = 0; col < width; col++) {
             for (int row = 0; row < height; row++) {
                 for (Mat image : images) {
@@ -122,7 +131,7 @@ public class Histogram {
         }
     }
 
-    public Pixel getPixel(int col, int row) {
+    Pixel getPixel(int col, int row) {
         int pixelLocation = row * width + col;
         return pixels[pixelLocation];
     }

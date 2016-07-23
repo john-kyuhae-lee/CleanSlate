@@ -14,5 +14,5 @@ public class Arc {
     private Arc next;
     private Arc sister;
 
-    private float residualCapacity;
+    private double residualCapacity;
 }

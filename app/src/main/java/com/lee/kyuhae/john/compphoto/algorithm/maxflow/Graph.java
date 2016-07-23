@@ -3,19 +3,17 @@ package com.lee.kyuhae.john.compphoto.algorithm.maxflow;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+
 /**
  * Created by john.lee on 7/20/16.
  */
 public class Graph {
-    final List<Node> nodeList = new ArrayList<>();
+    public static final int SOURCE = 0;
+    public static final int SINK = 1;
+
+    @Getter private final List<Node> nodeList = new ArrayList<>();
     private final List<Arc> arcList = new ArrayList<>();
-    List<NodePointer> nodePointerList;
-    Node[] queueFirst = new Node[2];
-    Node[] queueLast = new Node[2];
-    NodePointer orphanFirst = null;
-    NodePointer orphanLast = null;
-    int timestamp = 0;
-    double flow = 0.0;
 
     public Node addNode() {
         Node i = new Node();
@@ -27,7 +25,7 @@ public class Graph {
         return i;
     }
 
-    public void addEdge(Node from, Node to, float capacity, float reverseCapacity) {
+    public void addEdge(Node from, Node to, double capacity, double reverseCapacity) {
         Arc a = new Arc();
         Arc aRev = new Arc();
 
@@ -46,20 +44,10 @@ public class Graph {
         aRev.setResidualCapacity(reverseCapacity);
     }
 
-    public void setTweights(Node i, float sourceCapacity, float sinkCapacity) {
-        flow += sourceCapacity < sinkCapacity ? sourceCapacity : sinkCapacity;
-        i.setResidualCapacity(sourceCapacity - sinkCapacity);
-    }
-
-    public void addTweights(Node i, float sourceCapacity, float sinkCapacity) {
-        float delta = i.getResidualCapacity();
-        if (delta > 0) {
-            sourceCapacity += delta;
-        } else {
-            sinkCapacity -= delta;
+    public int whatSegment(Node i) {
+        if (i.getParent() != null && !i.isSink()) {
+            return SOURCE;
         }
-
-        setTweights(i, sourceCapacity, sinkCapacity);
+        return SINK;
     }
-
 }
