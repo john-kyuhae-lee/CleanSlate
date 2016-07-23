@@ -10,4 +10,10 @@ public class RGBVector {
     private final int r;
     private final int g;
     private final int b;
+
+    public RGBVector(int r, int g, int b) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
 }

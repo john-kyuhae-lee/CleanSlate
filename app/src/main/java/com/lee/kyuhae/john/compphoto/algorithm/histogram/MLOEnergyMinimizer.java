@@ -7,12 +7,13 @@ import com.lee.kyuhae.john.compphoto.algorithm.Coordinate;
 import org.opencv.core.Mat;
 
 /**
- * Maximum Likelyhood Estimation (MLE) Energy Minimizer
+ * Maximum Likelihood Object(MLO) Energy Minimizer
+ * Enabled by max histogram cut algorithm
  *
  * Created by john.lee on 7/19/16.
  */
-public class MLEMinimizer extends EnergyMinimizer {
-    private static final String TAG = "MLEMinimizer";
+public class MLOEnergyMinimizer extends EnergyMinimizer {
+    private static final String TAG = "MLOEnergyMinimizer";
 
     /**
      * Max Histogram Cut related Constants.
@@ -31,11 +32,11 @@ public class MLEMinimizer extends EnergyMinimizer {
 
     private final Histogram histogram;
 
-    public MLEMinimizer(Mat[] images, short[] labels) {
+    public MLOEnergyMinimizer(Mat[] images, short[] labels) {
         this(images, labels, EXPANSION_FLAG_DEFAULT);
     }
 
-    public MLEMinimizer(Mat[] images, short[] labels, boolean expansionFlag) {
+    public MLOEnergyMinimizer(Mat[] images, short[] labels, boolean expansionFlag) {
         super(images, labels, expansionFlag);
 
         this.histogram = new Histogram(images);
