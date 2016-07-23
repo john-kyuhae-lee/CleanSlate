@@ -27,7 +27,7 @@ public class MLEMinimizer extends EnergyMinimizer {
      */
     private static final float INTERACTION_PENALTY_COEFFICIENT = 0.6f;
     private static final float POTTS_INTERACTION_ENERGY_CONSTANT = 0.000001f;
-    private static final float REGULAR_INTERACTION_ENERGY_CONSTANT = 1.0f;
+    private static final float REGULAR_INTERACTION_ENERGY_CONSTANT = 0.1f;
 
     private final Histogram histogram;
 
@@ -148,6 +148,60 @@ public class MLEMinimizer extends EnergyMinimizer {
                 // TODO: Put an event-driven stop functionality.
                 // This could take awhile, and it seems this is what the original authors did.
             }
+        }
+    }
+
+    public double getCurrentDataPenalty(Coordinate cPoint) {
+        if ( cPoint.greaterThanOrEqualTo(ZERO_COORDINATE) &&
+                cPoint.smallerThan(coordinateLimit) ) {
+            return BVZDataPenalty(cPoint, labels[cPoint.getOneDimensionalIndex(width)]);
+        } else {
+            String message = "Received coordinate outside the range: " + cPoint.toString();
+            Log.d(TAG, message);
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    public double getCurrentMaxInteractionPenalty(Coordinate cPoint) {
+        if ( cPoint.greaterThanOrEqualTo(ZERO_COORDINATE) &&
+                cPoint.smallerThan(coordinateLimit) ) {
+            double maxPenalty = Double.MIN_VALUE;
+            int col = cPoint.getCol();
+            int row = cPoint.getRow();
+            Coordinate nPoint;
+            if (col > 0) {
+                nPoint = new Coordinate(col - 1, row);
+                maxPenalty = Math.max(maxPenalty, BVZInteractionPenalty(cPoint, nPoint,
+                        labels[cPoint.getOneDimensionalIndex(width)],
+                        labels[nPoint.getOneDimensionalIndex(width)]));
+            }
+
+            if (col < width - 1) {
+                nPoint = new Coordinate(col + 1, row);
+                maxPenalty = Math.max(maxPenalty, BVZInteractionPenalty(cPoint, nPoint,
+                        labels[cPoint.getOneDimensionalIndex(width)],
+                        labels[nPoint.getOneDimensionalIndex(width)]));
+            }
+
+            if (row > 0) {
+                nPoint = new Coordinate(col, row - 1);
+                maxPenalty = Math.max(maxPenalty, BVZInteractionPenalty(cPoint, nPoint,
+                        labels[cPoint.getOneDimensionalIndex(width)],
+                        labels[nPoint.getOneDimensionalIndex(width)]));
+            }
+
+            if (row < height - 1) {
+                nPoint = new Coordinate(col, row + 1);
+                maxPenalty = Math.max(maxPenalty, BVZInteractionPenalty(cPoint, nPoint,
+                        labels[cPoint.getOneDimensionalIndex(width)],
+                        labels[nPoint.getOneDimensionalIndex(width)]));
+            }
+
+            return maxPenalty;
+        } else {
+            String message = "Received coordinate outside the range: " + cPoint.toString();
+            Log.d(TAG, message);
+            throw new IllegalArgumentException(message);
         }
     }
 }

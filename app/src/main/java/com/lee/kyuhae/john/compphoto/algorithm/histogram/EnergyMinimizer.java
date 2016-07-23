@@ -36,9 +36,9 @@ abstract class EnergyMinimizer {
     private int termB;
 
     final Mat[] images;
-    private final int height;
-    private final int width;
-    private final short[] labels;
+    final int height;
+    final int width;
+    final short[] labels;
     final Coordinate coordinateLimit;
 
     EnergyMinimizer(Mat[] images, short[] labels) {
