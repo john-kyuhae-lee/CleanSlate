@@ -1,4 +1,4 @@
-package com.lee.kyuhae.john.compphoto;
+package lee.kyuhae.john.compphoto;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -7,14 +7,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.lee.kyuhae.john.compphoto.event.CaptureCompletionEvent;
-import com.lee.kyuhae.john.compphoto.test.MyTestFragment;
+import com.lee.kyuhae.john.compphoto.R;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+
+import lee.kyuhae.john.compphoto.event.CaptureCompletionEvent;
+import lee.kyuhae.john.compphoto.test.MyTestFragment;
 
 public class MainActivity extends AppCompatActivity {
     // Loading OpenCV native libraries

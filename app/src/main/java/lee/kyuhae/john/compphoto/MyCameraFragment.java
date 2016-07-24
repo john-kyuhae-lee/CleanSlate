@@ -1,4 +1,4 @@
-package com.lee.kyuhae.john.compphoto;
+package lee.kyuhae.john.compphoto;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,13 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lee.kyuhae.john.compphoto.camera2basic.AutoFitTextureView;
-import com.lee.kyuhae.john.compphoto.camera2basic.Camera2BasicFragment;
-import com.lee.kyuhae.john.compphoto.event.CaptureCompletionEvent;
+import com.lee.kyuhae.john.compphoto.R;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import lee.kyuhae.john.compphoto.camera2basic.AutoFitTextureView;
+import lee.kyuhae.john.compphoto.camera2basic.Camera2BasicFragment;
+import lee.kyuhae.john.compphoto.event.CaptureCompletionEvent;
 
 
 /**

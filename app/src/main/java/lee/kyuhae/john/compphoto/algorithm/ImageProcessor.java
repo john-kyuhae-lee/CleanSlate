@@ -1,21 +1,39 @@
-package com.lee.kyuhae.john.compphoto.algorithm;
-
-import android.util.Log;
-
-import com.lee.kyuhae.john.compphoto.algorithm.histogram.MLOEnergyMinimizer;
+package lee.kyuhae.john.compphoto.algorithm;
 
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
 import java.util.Arrays;
 
+import lee.kyuhae.john.compphoto.algorithm.histogram.MLOEnergyMinimizer;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
+ * ImageProcessor class that takes set of images and does a computation.
+ * The only available mode is MLO (Maximum Likelihood Objective).
+ *
+ * Flow of the computation:
+ * 1. Receive a set of images.
+ * 2. Create MLEEnergyMinimizer.
+ *  -2a. Creates a histogram per pixel in order to identify the most likely pixel that is background.
+ *  -2b. Process and compare energy of each image using maxflow algorithm
+ *      so that the final results contains only pixels that generates lowest value for the energy.
+ *      This information is stored in the labels.
+ * 3. Create the final composite.
+ *
+ * Acknowledge: Interactive Digital Photomontage by
+ *      Aseem Agarwala, Mira Dontcheva, Maneesh Agrawala, Steven Drucker, Alex Colburn,
+ *      Brian Curless, David Salesin, and Michael Cohen
+ *
+ * This class contains logic that are extacted from tmpfuse/compViewer.cpp.
+ * Main flow of the work is modeled after the works cited above
+ * -- Use of labels and creating the final composite using the results of computations on the labels.
+ *
  * Created by john.lee on 7/22/16.
  */
-
+@Slf4j
 public class ImageProcessor {
     private static final String TAG = "ImageProcessor";
     private static final double PENALTY_VALUE_CONVERSION_COEFFICIENT = 100.0d;
@@ -41,7 +59,7 @@ public class ImageProcessor {
 
         // Info: CV_8U may not be the right type... We'll see.
         // CV_8U is for unsigned int 0-255.
-        this.labelImage = Mat.ones(height, width, CvType.CV_8U);
+        this.labelImage = Mat.ones(height, width, CvType.CV_32S);
 
         this.labels = new short[width * height];
         Arrays.fill(labels, (short) 0);
@@ -52,9 +70,9 @@ public class ImageProcessor {
 
     public void compute() {
         // This alters labels array.
-        Log.d(TAG, "Starting MLE Minimizer computation.");
+        log.debug("Starting MLE Minimizer computation.");
         this.energyMinimizer.compute();
-        Log.d(TAG, "Completed MLE Minimizer computation.");
+        log.debug("Completed MLE Minimizer computation.");
 
         // Info: This is optional
         // re-coloring of the label images after minimizer computation has ran.
@@ -80,8 +98,8 @@ public class ImageProcessor {
     }
 
     private void createPenaltyVisualization() {
-        this.dataPenaltyImage = Mat.ones(height, width, CvType.CV_8U);
-        this.interactionPenaltyImage = Mat.ones(height, width, CvType.CV_8U);
+        this.dataPenaltyImage = Mat.ones(height, width, CvType.CV_32S);
+        this.interactionPenaltyImage = Mat.ones(height, width, CvType.CV_32S);
 
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
@@ -100,7 +118,7 @@ public class ImageProcessor {
     }
 
     private Mat createComposite() {
-        Mat composite = Mat.ones(height, width, CvType.CV_8U);
+        Mat composite = Mat.ones(height, width, CvType.CV_32S);
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 Coordinate cPoint = new Coordinate(col, row);

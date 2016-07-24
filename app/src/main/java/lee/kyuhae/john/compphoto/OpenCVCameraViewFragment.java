@@ -1,4 +1,4 @@
-package com.lee.kyuhae.john.compphoto;
+package lee.kyuhae.john.compphoto;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import com.lee.kyuhae.john.compphoto.R;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;

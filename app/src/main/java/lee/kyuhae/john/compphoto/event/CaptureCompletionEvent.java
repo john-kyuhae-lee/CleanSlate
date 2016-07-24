@@ -1,4 +1,4 @@
-package com.lee.kyuhae.john.compphoto.event;
+package lee.kyuhae.john.compphoto.event;
 
 import java.util.ArrayList;
 

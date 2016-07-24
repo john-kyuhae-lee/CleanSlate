@@ -1,4 +1,4 @@
-package com.lee.kyuhae.john.compphoto.test;
+package lee.kyuhae.john.compphoto;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,15 +16,16 @@ import com.lee.kyuhae.john.compphoto.R;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by john.lee on 7/19/16.
+ * A placeholder fragment containing a simple view.
  */
-
-public class MyTestFragment extends Fragment {
-    private static final String TAG = "MyTestFragment";
+public class PhotoDisplayFragment extends Fragment {
+    private static final String TAG = "PhotoDisplayFragment";
     private View view;
     private Context mContext;
     private final AtomicInteger imageViewId = new AtomicInteger(0);
@@ -36,29 +37,35 @@ public class MyTestFragment extends Fragment {
         view = inflater.inflate(R.layout.photodisplay_fragment_layout, container, false);
         mContext = view.getContext();
 
-        Mat img1 = loadImageFromResource(R.raw.cathedral_001);
-        if (img1 == null) {
-            Log.d(TAG, "image not found!");
-            return view;
-        }
-        double[] channels = img1.get(0,0);
-        for (int i = 0; i < channels.length; i++) {
-            Log.d(TAG, "sample image pixel(0,0) " + i + " : " + channels[i]);
-        }
-        addImage(img1);
-        addText("first image");
+        // Mat img1 = loadImageFromResource(R.raw.cathedral_001);
+        // addImage(img1, R.id.image_view1);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        ArrayList<String> pictures = getArguments().getStringArrayList(Constants.PHOTO_PATH_ARG);
+
+        if (pictures == null) {
+            Log.d(TAG, "Received an empty array for pictures.");
+            return;
+        }
+
+        Log.d(TAG, "Received " + pictures.size() + " images :[" + pictures.toString() + "]");
+        addText("Images...");
+        for (int i = 0; i < pictures.size(); i++) {
+            Mat imgMat = Imgcodecs.imread(pictures.get(i));
+            addImage(imgMat);
+            addText("image " + i);
+        }
     }
 
     private Mat loadImageFromResource(int resourceId) {
         Mat mat;
         try {
-            mat = Utils.loadResource(mContext, resourceId);
+            mat = Utils.loadResource(mContext, resourceId, 0);
         } catch (Exception e) {
             Log.e(TAG, "Error while reading resource.", e);
             return null;
@@ -106,5 +113,4 @@ public class MyTestFragment extends Fragment {
 
         imageContainer.addView(textView, params);
     }
-
 }

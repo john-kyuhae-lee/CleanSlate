@@ -1,4 +1,4 @@
-package com.lee.kyuhae.john.compphoto.algorithm;
+package lee.kyuhae.john.compphoto.algorithm;
 
 import lombok.Data;
 

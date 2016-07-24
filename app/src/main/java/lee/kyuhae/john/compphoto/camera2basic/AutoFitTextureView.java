@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lee.kyuhae.john.compphoto.camera2basic;
+package lee.kyuhae.john.compphoto.camera2basic;
 
 import android.content.Context;
 import android.util.AttributeSet;

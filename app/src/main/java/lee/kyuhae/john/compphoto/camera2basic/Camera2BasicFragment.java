@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lee.kyuhae.john.compphoto.camera2basic;
+package lee.kyuhae.john.compphoto.camera2basic;
 
 import android.Manifest;
 import android.app.Activity;
@@ -56,7 +56,6 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.lee.kyuhae.john.compphoto.Constants;
 import com.lee.kyuhae.john.compphoto.R;
 
 import java.io.File;
@@ -70,6 +69,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+
+import lee.kyuhae.john.compphoto.Constants;
 
 
 public abstract class Camera2BasicFragment extends Fragment implements View.OnClickListener {

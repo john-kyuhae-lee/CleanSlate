@@ -1,22 +1,27 @@
-package com.lee.kyuhae.john.compphoto.algorithm.histogram;
-
-import android.util.Log;
+package lee.kyuhae.john.compphoto.algorithm.histogram;
 
 import org.opencv.core.Mat;
 
 import java.util.Arrays;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Histogram -- This class is translated from the corresponding original work
- * (tmpfuse/histogram.h, tmpfuse/histogram.cpp). Acknowledging that it is java representation
- * of author's original work. Link to their artifact can be found in Readme file of the project.
+ * Histogram
+ *
+ * Acknowledge: Interactive Digital Photomontage by
+ *      Aseem Agarwala, Mira Dontcheva, Maneesh Agrawala, Steven Drucker, Alex Colburn,
+ *      Brian Curless, David Salesin, and Michael Cohen
+ *
+ * This class contains logic that are extacted from tmpfuse/graphcut/histogram.cpp and histogram.h.
+ * (tmpfuse/histogram.h, tmpfuse/histogram.cpp).
+ *
  * Created by john.lee on 7/19/16.
  */
+@Slf4j
 class Histogram {
     private class Channel {
-        private static final String TAG = "Histogram.Channel";
         private static final int MIN = 0;
         private static final int MAX = 256;
         private static final int NUM_BINS = 20;
@@ -25,8 +30,7 @@ class Histogram {
         private int totalNumDataPoint = 0;
         private int peakBinIdx = -1;
         private int[] histogram;
-        @Getter
-        private double variance;
+        @Getter private double variance;
 
         Channel() {
             this.histogram = new int[NUM_BINS];
@@ -35,7 +39,7 @@ class Histogram {
 
         void addValue(int val) {
             if (val < MIN || val > MAX) {
-                Log.e(TAG, "A given data with value " + val + ".");
+                log.error("A given data with value " + val + ".");
                 throw new IllegalArgumentException("Data should be between " + MIN + " and " + MAX
                         + ". Given " + val + ".");
             }
@@ -44,14 +48,12 @@ class Histogram {
             histogram[binIdx]++;
             totalNumDataPoint++;
 
-            if (histogram[binIdx] > histogram[peakBinIdx]) {
+            if (peakBinIdx < 0 || histogram[binIdx] > histogram[peakBinIdx]) {
                 peakBinIdx = binIdx;
             }
-
-            computeVariance();
         }
 
-        private void computeVariance() {
+        void computeVariance() {
             double mean = 0.0;
             for (int i = 0; i < NUM_BINS; i++) {
                 mean += histogram[i] * ((i + 1) * BIN_SIZE);
@@ -60,14 +62,13 @@ class Histogram {
 
             variance = 0.0;
             for (int i = 0; i < NUM_BINS; i++) {
-                variance += histogram[i] *
-                        (((i + 1) * BIN_SIZE - mean) * (i * BIN_SIZE - mean));
+                variance += histogram[i] * (((i + 1) * BIN_SIZE - mean) * (i * BIN_SIZE - mean));
             }
         }
 
         double getProbability(int val) {
             int binIdx = (int) (val / BIN_SIZE);
-            return histogram[binIdx] / totalNumDataPoint;
+            return histogram[binIdx] / (double) totalNumDataPoint;
         }
     }
 
@@ -84,6 +85,12 @@ class Histogram {
             this.rChannel.addValue(r);
             this.gChannel.addValue(g);
             this.bChannel.addValue(b);
+        }
+
+        void computeVariance() {
+            this.rChannel.computeVariance();
+            this.gChannel.computeVariance();
+            this.bChannel.computeVariance();
         }
 
         double getProbability(double[] rgbValues) {
@@ -117,16 +124,17 @@ class Histogram {
 
     }
 
-    public void compute() {
+    void compute() {
         for (int col = 0; col < width; col++) {
             for (int row = 0; row < height; row++) {
+                int pixelLocation = row * width + col;
+                pixels[pixelLocation] = new Pixel();
                 for (Mat image : images) {
                     // openCV expects row first.
                     double[] pixelValues = image.get(row, col);
-                    int pixelLocation = row * width + col;
-                    pixels[pixelLocation] = new Pixel();
                     pixels[pixelLocation].addValues(pixelValues);
                 }
+                pixels[pixelLocation].computeVariance();
             }
         }
     }

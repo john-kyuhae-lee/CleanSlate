@@ -1,4 +1,4 @@
-package com.lee.kyuhae.john.compphoto;
+package lee.kyuhae.john.compphoto;
 
 /**
  * Created by john.lee on 7/17/16.
