@@ -28,13 +28,17 @@ _Output Images_ - The output image from the original work.
 
 This project also utilizes the algorithm described in the following paper.
 
-_Computing Visual Correspondence with Occlusions using Graph Cuts_ by Vladimir Kolmogorov and Ramin Zabih.
+- _Computing Visual Correspondence with Occlusions using Graph Cuts_ by Vladimir Kolmogorov and Ramin Zabih.
 
 Link: [http://pub.ist.ac.at/~vnk/papers/KZ01.html] (http://pub.ist.ac.at/~vnk/papers/KZ01.html)
 
-_Fast Approximate Energy Minimization via Graph Cuts_ by Yuri Boykov, Olga Veksler, and Ramin Zabih
+- _Fast Approximate Energy Minimization via Graph Cuts_ by Yuri Boykov, Olga Veksler, and Ramin Zabih
 
 Link: [http://www.cs.cornell.edu/rdz/Papers/BVZ-pami01-final.pdf] (http://www.cs.cornell.edu/rdz/Papers/BVZ-pami01-final.pdf)
+
+- _Camera2Basic_ Google Android Tutotial.
+
+Link: [https://github.com/googlesamples/android-Camera2Basic] (https://github.com/googlesamples/android-Camera2Basic)
 
 ### Project Scope
 
