@@ -2,7 +2,9 @@
 
 This project is inspired by the following original work.
 
-_Photomontage_ [http://grail.cs.washington.edu/projects/photomontage/] (http://grail.cs.washington.edu/projects/photomontage/)
+_Interactive Digital Photomontage_ by Aseem Agarwala, Mira Dontcheva, Maneesh Agrawala, Steven Drucker, Alex Colburn, Brian Curless, David Salesin, and Michael Cohen
+
+Link: [http://grail.cs.washington.edu/projects/photomontage/] (http://grail.cs.washington.edu/projects/photomontage/)
 
 One of features is called 'clean slate'. The objective of this program is to remove moving objects from a set of pictures of the same scene. A good usecase is remove all people from a scene of popular travel places.
 
@@ -24,10 +26,10 @@ _Output Images_ - The output image from the original work.
 
 This project also utilizes the algorithm described in the following paper.
 
-Computing Visual Correspondence with Occlusions using Graph Cuts by Vladimir Kolmogorov and Ramin Zabih.
+_Computing Visual Correspondence with Occlusions using Graph Cuts_ by Vladimir Kolmogorov and Ramin Zabih.
 
 Link: [http://pub.ist.ac.at/~vnk/papers/KZ01.html] (http://pub.ist.ac.at/~vnk/papers/KZ01.html)
 
-### Scope of the Project
+### Project Introduction
 
-Both projects made their implementations available. They are both written in c++. The goal of this project is to integrate their works into an android phone so that we can take pictures with the phone and get the 'CleanSlate' result in the moment. Thus, the project mainly involves extraction and translation of original works. I made the best effort to credit the original work in each classes that refer the works mentioned above.
+Both projects made their implementations available. They are both written in c++. The goal of this project is to integrate their works into an android phone so that we can take pictures with the phone and get the 'CleanSlate' result in the moment. Users may use tripod to mount phones with this app to take a picture of a scene. The app automatically takes 5-10 pictures and produces outcome that has no people present to the best effort. The project mainly involves extraction and translation of original works and integration into the android camera functionality. I made the best effort to credit the original work in each file that refers to the works cited above.
