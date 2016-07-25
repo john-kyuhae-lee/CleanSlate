@@ -55,7 +55,7 @@ Optimization is not done, yet. So it doesn't work in a phone device.
 ### Results
 
 These are the result of my input pictures when I ran the code on my laptop.
-A scene is of the main entrance of the ATT park. Taken (Jul 24, 2016 at around noon).
+So I've used the desktop version to produce following results. Find the link above. A scene is of the main entrance of the ATT park. Taken (Jul 24, 2016 at around noon).
 
 _Input Images_ 
 
