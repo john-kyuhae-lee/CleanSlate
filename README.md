@@ -54,8 +54,26 @@ Optimization is not done, yet. So it doesn't work in a phone device.
 
 ### Results
 
-Following are the my input pictures which is a scene of the main entrance of the ATT park. Taken (Jul 24, 2016 at around noon).
+These are the result of my input pictures when I ran the code on my laptop.
+A scene is of the main entrance of the ATT park. Taken (Jul 24, 2016 at around noon).
+
+_Input Images_ 
 
 <img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/1.jpg" width="256" height="192">
-<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/1.jpg" width="256" height="192">
-<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/1.jpg" width="256" height="192"><img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/1.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/2.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/3.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/4.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/5.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/6.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/7.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/8.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/9.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/10.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/11.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/12.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/13.jpg" width="256" height="192">
+
+_Output Images_
+
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark_composite.jpg" width="256" height="192">
+
