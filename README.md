@@ -51,3 +51,11 @@ Initial implementation and translations of the original works are completed. Tes
 Link: [https://github.com/john-kyuhae-lee/CleanSlateDesktop] (https://github.com/john-kyuhae-lee/CleanSlateDesktop)
 
 Optimization is not done, yet. So it doesn't work in a phone device.
+
+### Results
+
+Following are the my input pictures which is a scene of the main entrance of the ATT park. Taken (Jul 24, 2016 at around noon).
+
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/1.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/1.jpg" width="256" height="192">
+<img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/1.jpg" width="256" height="192"><img src="https://github.com/john-kyuhae-lee/CleanSlateDesktop/blob/master/src/main/resources/attpark/1.jpg" width="256" height="192">
