@@ -10,6 +10,9 @@ Link: [http://grail.cs.washington.edu/projects/photomontage/] (http://grail.cs.w
 
 One of features is called 'clean slate'. The objective of this program is to remove moving objects from a set of pictures of the same scene. A good usecase is remove all people from a scene of popular travel places.
 
+See narrative here:
+https://docs.google.com/presentation/d/1tS6luh4BLKdJt1vY4zuIWG586or6I1nyF9ml1gn2GX0/pub?start=false&loop=false&delayms=10000
+
 ### Examples
 
 _Input Images_ - These are images used from the original work.
